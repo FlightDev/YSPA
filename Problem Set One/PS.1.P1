@@ -1,0 +1,18 @@
+#Problem Set 1 - Problem 1
+
+from math import *
+
+def leibnitz_approximation(terms):
+    approximation = 0   #a sum to store the Leibnitz sum for pi/4
+    negative = -1.0     #a switch to change the terms from negative to postive and vice versa
+    for counter in range(0, terms):
+        negative *= -1.0    #switches the sign of the term
+        approximation += negative / (counter * 2 + 1)
+    return approximation
+
+def compare(calculated, known, itterations):
+    percent_error = abs(calculated - known) / known * 100   #finds the percent error of the Leibnitz sum
+    print 'The approximation with %d itterations was %f and had a percent error of %04f%%' % (itterations, calculated, percent_error)
+
+for i in range (1, 4):  #finds the sum at various amounts of iterations
+    compare(leibnitz_approximation(10**i), pi/4, 10**i) 
