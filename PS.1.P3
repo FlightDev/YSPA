@@ -1,0 +1,42 @@
+#Problem Set 1 - Problem 3
+
+# -*- coding: utf-8 -*-
+local_encoding = 'cp850'
+deg = u'\xb0'.encode(local_encoding)
+
+
+def sexagesimal_to_decimal(angle):
+    negative = 1.0
+    decimal = 0
+    if angle[0] == "-": #saves if the given angle is negative or not
+        negative = -1.0
+        angle = angle[1:]
+    places = angle.split('_')   #takes the given angle and changes it into an array of digits to convert    
+    for i in range(0, len(places)):
+        decimal += float(places[i]) / (60.0 ** i)
+    decimal *= negative #makes the decimal negative if it was initially
+    print decimal
+
+def decimal_to_sexagesimal(angle):
+    time = []
+    negative = 1.0
+    sexagesimal = ""
+    if angle < 0:
+        negative = -1.0
+        angle *= -1.0
+    time.append(int(angle)) #finds the degree of the angle
+    angle -= int(angle)
+    time.append(int(angle*60.0)) #find the arcminutes of the angle
+    angle -= time[1] /  60.0
+    time.append(angle*3600.0) #find the arcseconds of the angle
+    time[0] *= negative
+    time[0] = int(time[0])
+    print str(time[0]) + deg + str(time[1]) + "\'" + str(time[2]) + "\"" #returns the angle in the correct format
+
+sexagesimal_to_decimal("11_54")
+sexagesimal_to_decimal("-60_31_10")
+sexagesimal_to_decimal("-8_45_15.94")
+
+decimal_to_sexagesimal(60.04)
+decimal_to_sexagesimal(89.99999)
+decimal_to_sexagesimal(-23.43715)
