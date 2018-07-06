@@ -1,0 +1,36 @@
+#Problem Set 2 - Problem 4
+
+#1  solar  day  equals  1.0027379 sidereal days
+#julian day 0 started at noon
+#reference date: January 1, 2016 - 2457388.5
+#reference time: 06:40:21
+
+def find_LST(longitude, julian_days): 
+    reference_date = 2457388.5 #a reference date to reduce accumulated error
+    reference_time = [6, 40, 21] #a reference time that corresponds with the refernce date
+    julian_days = (julian_days - reference_date)* 1.0027379 #tells how many Sidereal days have passed since the reference date
+    julian_days -= int(julian_days) #tells what percentage of a siderial date the given julian date is 
+    reference_hours = reference_time[0] + reference_time[1] / 60.0 + reference_time[2] / 3600.0 #totals the number of hours needed to add because of the reference time
+    UT = dec_hours_to_time(julian_days * 24 + reference_hours, longitude) #returns a time based off of the reference time and the Julian date passed into the function
+    return "%02i:%02i:%02i LST" % ((UT[0]) % 24, UT[1], UT[2]) #prints out the LST in a nice format
+
+    
+def dec_hours_to_time(time, longitude):
+    offset = longitude / 15 #finds the offset time needed due to longitudal differences
+    time += offset #applies the offset time
+    UT = []
+    UT.append(int(time)) #adds the hours place of the current time
+    time -= int(time)
+    if UT[0] < 0: #ensures the hours place is greater than 0 but less than 24
+        UT[0] += 24
+    UT.append(int(time * 60)) #adds the minutes place of the current time
+    time = (time * 60.0) - UT[1]
+    UT.append(time * 60.0) #adds the seconds place of the current time
+    return UT
+
+
+print find_LST(-72.9279, 2458310.666673)
+
+long = float(input("What longitude: "))
+j_days = float(input("What Julian day: "))
+print find_LST(long, j_days)
