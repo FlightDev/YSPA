@@ -13,14 +13,20 @@ def verlet_position(current_pos, last_pos, d_tau, mu):
 
 tau = 0.0
 t = 0.00
-end_t = 5.00
+end_t = 3.00
 d_tau = 0.000001
 k = 0.01720209895
 end_tau = k * (end_t - t)
 mu = 1.0
+"""
+R2  <0.718449, -0.98595, -0.337169>
+R2_DOT  <0.613238, 0.805295, 0.313068>
+"""
+r_last = vector(0.718449, -0.98595, -0.337169)
+r_dot = vector(0.613238, 0.805295, 0.313068)
 
-r_last = vector(0.244, 2.170, -0.445)
-r_dot = vector(-0.731, -0.0041, 0.0502)
+#r_last = vector(0.244, 2.170, -0.445)
+#r_dot = vector(-0.731, -0.0041, 0.0502)
 r_now = r_last + r_dot * d_tau + 0.5 * accel(r_last, mu) * (d_tau ** 2)
 tau += d_tau
 
@@ -46,7 +52,6 @@ jd = 2458305.666667 # July 1, 2018, 0:00 EDT
 epsilon = 23.43687   # obliquity of the Ecliptic
 eph = Ephemeris(de421)
 
-
 def location_to_angles(location):
     dec = asin(location.z)
     ra = acos(location.x/cos(dec))
@@ -60,6 +65,7 @@ R0 = vector(earth)/AU # This is the Sun to Earth center vector in Equatorial sys
 R_geocentric = 1*R0
 print R_geocentric
 sun_to_asteroid = r_now
+#sun_to_asteroid = vector(0.244, 2.17, -0.445)
 sun_to_asteroid = sun_to_asteroid.rotate(radians(epsilon), vector(1, 0, 0))
 print sun_to_asteroid
 earth_to_asteroid = norm(-R_geocentric + sun_to_asteroid) # Gets unit vector from Earth to Asteroid
@@ -68,6 +74,3 @@ angles = location_to_angles(earth_to_asteroid)
 
 
 print angles[0], angles[1]
-
-
-print 12345

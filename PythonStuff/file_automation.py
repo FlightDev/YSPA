@@ -10,7 +10,7 @@ from astropy.io import fits
 
 #/home/student/Desktop/Images/LFOP
 
-dir = '20180720-LFOP-BAD'
+dir = '20180726-LFOP-GOOD'
 path = '/home/student/Desktop/Images/LFOP/' + dir + '/'
 dict = {}
 date = ""
@@ -24,3 +24,4 @@ for filename in os.listdir(path):
 for key, value in sorted(dict.items()):
     print value + "\t\t" + str(key)
 print date
+print len(dict)
