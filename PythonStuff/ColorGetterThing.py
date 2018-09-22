@@ -1,8 +1,13 @@
 import matplotlib.pyplot as plt
 from math import *
 
-x_coor = [1.1, 1.6, 2.0, 2.1, 2.9, 3.2, 3.3, 4.4, 4.9]
-y_coor = [72.61, 72.91, 73.00, 73.11, 73.52, 73.70, 76.10, 74.26, 74.51]
+#Calibrated, Catalog, Red
+x_coor = [10.665, 9.997, 9.377, 8.882, 8.849, 12.525, 11.974, 10.660, 11.978, 14.517, 14.72]
+y_coor = [11.603, 10.439, 10.160, 9.438, 9.554, 14.867, 13.740, 11.833, 13.708, 15.630, 15.730]
+
+#Calibrated, Catalog, V
+#x_coor = [14.289, 14.022, 12.167, 12.208, 17.850, 13.222, 17.249, 16.389, 16.170]
+#y_coor = [15.140, 14.270, 12.810, 11.582, 17.810, 13.840, 17.520, 16.690, 16.040]
 plt.scatter(x_coor, y_coor)
 
 
@@ -60,8 +65,9 @@ def get_line_points(x_coor, slope, intercept):
 line = fit_least_squares(x_coor, y_coor)
 sd = standard_deviation(x_coor, y_coor, line[0], line[1])
 print sd
-print find_val(3.5, line[0], line[1])
-throw_outliers(x_coor, y_coor, line[0], line[1], sd)
+print line[0], line[1]
+print find_val(16.038, line[0], line[1])
+#throw_outliers(x_coor, y_coor, line[0], line[1], sd)
 lines = []
 lines.append(get_line_points(x_coor, line[0], line[1]))
 lines.append(get_line_points(x_coor, line[0], line[1] + 3 * sd))

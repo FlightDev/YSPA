@@ -26,7 +26,7 @@ x_accel = []
 y_accel = []
 z_accel = []
 balloonstate = []
-
+print lines[0]
 for line in range(1110, 8100):
     s = lines[line].split(", ")
     if float(s[5]) < 0:
@@ -54,6 +54,13 @@ Temp = Temp[1110:8100]
 Alt = Alt[1110:8100]
 """
 f, (x1, x2, x3) = plt.subplots(3)
+plt.suptitle("Weather Balloon Data", fontsize = 30)
+x1.set_xlabel("Time (ms) from Electronic initiation")
+x1.set_ylabel("Altitutde (m)")
+x2.set_xlabel("Altitutde (m)")
+x2.set_ylabel("Temp (C)")
+x3.set_xlabel("Altitutde (m)")
+x3.set_ylabel("Radiation (uSv/h)")
 x1.scatter(millisec, Alt)
 x2.scatter(Alt, Temp)
 x3.scatter(Alt, uSv_h)
